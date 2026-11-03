@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador QR</title>
+  <meta name="description" content="Genera códigos QR con o sin logo en el centro. Todo se procesa en tu navegador.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1>Generador QR</h1>
+    <p>Creá tu código QR, con o sin imagen en el centro. Nada se sube a ningún servidor.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls" aria-label="Opciones">
+      <div class="field">
+        <label for="data">Texto o URL</label>
+        <textarea id="data" rows="3" placeholder="https://ejemplo.com">https://github.com</textarea>
+      </div>
+
+      <fieldset class="group">
+        <legend>Imagen central <span class="muted">(opcional)</span></legend>
+        <div class="drop" id="drop">
+          <input type="file" id="logo" accept="image/*">
+          <label for="logo" class="drop-label">
+            <span id="drop-text">Elegí o arrastrá una imagen</span>
+          </label>
+          <button type="button" id="remove-logo" class="link" hidden>Quitar imagen</button>
+        </div>
+        <div class="field logo-opt">
+          <label for="logo-size">Tamaño del logo <output id="logo-size-out">30%</output></label>
+          <input type="range" id="logo-size" min="15" max="40" value="30">
+        </div>
+        <div class="field logo-opt">
+          <label for="logo-margin">Espacio alrededor <output id="logo-margin-out">6px</output></label>
+          <input type="range" id="logo-margin" min="0" max="20" value="6">
+        </div>
+        <label class="check logo-opt">
+          <input type="checkbox" id="logo-bg" checked> Fondo limpio detrás del logo
+        </label>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>Estilo</legend>
+        <div class="row">
+          <div class="field">
+            <label for="dot-color">Color de puntos</label>
+            <input type="color" id="dot-color" value="#111827">
+          </div>
+          <div class="field">
+            <label for="bg-color">Color de fondo</label>
+            <input type="color" id="bg-color" value="#ffffff">
+          </div>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="bg-transparent"> Fondo transparente (PNG/SVG)
+        </label>
+        <div class="row">
+          <div class="field">
+            <label for="dot-style">Forma de puntos</label>
+            <select id="dot-style">
+              <option value="square">Cuadrados</option>
+              <option value="rounded" selected>Redondeados</option>
+              <option value="extra-rounded">Muy redondeados</option>
+              <option value="dots">Círculos</option>
+              <option value="classy">Clásico</option>
+              <option value="classy-rounded">Clásico redondeado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="corner-style">Esquinas</label>
+            <select id="corner-style">
+              <option value="square">Cuadradas</option>
+              <option value="extra-rounded" selected>Redondeadas</option>
+              <option value="dot">Círculo</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="corner-color">Color de esquinas</label>
+          <input type="color" id="corner-color" value="#111827">
+        </div>
+      </fieldset>
+
+      <fieldset class="group">
+        <legend>Descarga</legend>
+        <div class="field">
+          <label for="size">Tamaño <output id="size-out">1024 px</output></label>
+          <input type="range" id="size" min="256" max="2048" step="128" value="1024">
+        </div>
+        <div class="field">
+          <label for="filename">Nombre del archivo</label>
+          <input type="text" id="filename" value="codigo-qr">
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="panel preview" aria-label="Vista previa">
+      <div class="qr-frame" id="qr"></div>
+      <p class="hint" id="hint"></p>
+      <div class="actions">
+        <button type="button" class="btn primary" data-ext="png">Descargar PNG</button>
+        <button type="button" class="btn" data-ext="svg">SVG</button>
+        <button type="button" class="btn" data-ext="jpeg">JPG</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">Hecho con HTML + JS · funciona sin conexión a servidores</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
